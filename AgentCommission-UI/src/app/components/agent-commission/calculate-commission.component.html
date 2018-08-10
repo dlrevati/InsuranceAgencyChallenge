@@ -1,0 +1,52 @@
+<div class="container col-6 insuranceAgency">   
+    <h2 class="title"> Calculate Agent Commission </h2>
+    <br>
+    <form name="calculateForm" ngNativeValidate *ngIf="isContextSet" #calculateForm="ngForm">
+        <div class="form-group">
+            <label for="policyAmount"><b>Enter Policy Amount:</b></label>
+            <input type="number" min="1" class="form-control" id="policyamount" [(ngModel)]="policyAmount"
+             name="policyAmount" step=".01" required>
+        </div>       
+        <div class="form-group">
+                <label for="commissionPlan"><b>Select Commission Plan:</b> </label>
+                <div *ngFor="let plan of planDescription">
+                    <input type="radio" name="commissionPlan" [(ngModel)]="commissionPlan"  value="{{plan.planName}}" required> Plan {{plan.planName}} 
+                    <ul  class="agentsList"><i>
+                        <li *ngFor="let agent of plan.agents">
+                                {{ agent }} % of agent commission amount
+                        </li></i>
+                    </ul>
+                </div>
+        </div>
+        <div class="form-group">
+            <label for="addSuperAgent"><b>Do you want to add Super Agents?
+                (Maximum of {{ agent_threshold }} agents can be added)</b>
+            </label>
+            <div>
+                <button type="button" class="btn btn-success agentsList"  id="addSuperAgent" (click)="addSuperAgent()">Add Super Agent</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-danger agentsList"  id="reduceSuperAgent"(click)="reduceSuperAgent()">Remove Super Agent</button>
+            </div>                   
+        </div>
+        <div class="form-group">  
+            <ul class="agentsList"><i>
+                <li *ngFor="let agent of agentList">
+                        {{agent}}
+                </li></i>
+            </ul>   
+        </div>      
+        <p class="error"><b>{{errorMessage}}</b></p>
+        <button type="submit" class="btn btn-success" [disabled]="!calculateForm.form.valid" (click)=onSubmit()>Calculate</button> 
+    </form>
+    <!--Display results -->
+    <!--<div *ngIf="agentCommissionResult">
+            <p class="form-group" *ngFor="let agent of agentCommissionResult" >
+                    {{agent}}
+            </p> 
+    </div>
+    <p class="error"><b>{{ resultErrorMessage }}</b></p>    
+    -->
+    <div class="container col-6" *ngIf="!isContextSet">
+        <p> Error loading configuration file.</p>
+    </div>
+</div>
+

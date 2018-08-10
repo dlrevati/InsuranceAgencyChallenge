@@ -1,0 +1,17 @@
+.error{
+    color: #a94442;
+}
+.agentsList{
+    font-size: 12px;
+}
+.hide{
+    display: none;
+}
+.title{
+    text-align:center
+}
+
+.insuranceAgency{
+    border: 1px solid #28a745;
+    background-color: #e8ffed;
+}
